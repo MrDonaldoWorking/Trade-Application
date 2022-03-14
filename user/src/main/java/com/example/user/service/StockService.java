@@ -105,7 +105,7 @@ public class StockService {
         final HttpResponse<String> response = postRequest(request("/buy",
                 "?companyId=", companyId,
                 "&amount=", amount));
-        return getBoolean(response);
+        return response.statusCode() == 200;
     }
 
     /**
@@ -119,7 +119,7 @@ public class StockService {
         final HttpResponse<String> response = postRequest(request("/sell",
                 "?companyId=", companyId,
                 "&amount=", amount));
-        return getBoolean(response);
+        return response.statusCode() == 200;
     }
 
     /**
@@ -133,6 +133,23 @@ public class StockService {
         final HttpResponse<String> response = postRequest(request("/change",
                 "?companyId=", companyId,
                 "&delta=", delta));
-        return getBoolean(response);
+        return response.statusCode() == 200;
+    }
+
+    /**
+     * Adds a new company
+     *
+     * @return company id in int
+     */
+    public int addCompany() {
+        final HttpResponse<String> response = postRequest(request("/add_company"));
+        return getInteger(response);
+    }
+
+    public boolean addStocks(final int companyId, final int amount) {
+        final HttpResponse<String> response = postRequest(request("/add_stock",
+                "?companyId=", companyId,
+                "&amount=", amount));
+        return response.statusCode() == 200;
     }
 }

@@ -43,17 +43,17 @@ public class TradeController {
     }
 
     @PostMapping("/buy")
-    public ResponseEntity<?> buy(@RequestBody final int companyId, @RequestBody final int amount) {
+    public ResponseEntity<?> buy(final int companyId, final int amount) {
         return processBooleanMethod(dao.buyStock(companyId, amount));
     }
 
     @PostMapping("/sell")
-    public ResponseEntity<?> sell(@RequestBody final int companyId, @RequestBody final int amount) {
+    public ResponseEntity<?> sell(final int companyId, final int amount) {
         return processBooleanMethod(dao.sellStock(companyId, amount));
     }
 
     @PostMapping("/change")
-    public ResponseEntity<?> change(@RequestBody final int companyId, @RequestBody final double delta) {
+    public ResponseEntity<?> change(final int companyId, final double delta) {
         return processBooleanMethod(dao.changePrice(companyId, delta));
     }
 }

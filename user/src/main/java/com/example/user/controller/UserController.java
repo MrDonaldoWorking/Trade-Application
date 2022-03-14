@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/put_money")
-    public ResponseEntity<?> putMoney(final @RequestBody int userId, final @RequestBody double amount) {
+    public ResponseEntity<?> putMoney(final int userId, final double amount) {
         return processBooleanMethod(dao.putMoney(userId, amount));
     }
 
@@ -54,16 +54,16 @@ public class UserController {
     }
 
     @PostMapping("/buy_stocks")
-    public ResponseEntity<?> buy(final @RequestBody int userId,
-                                 final @RequestBody int companyId,
-                                 final @RequestBody int amount) {
+    public ResponseEntity<?> buy(final int userId,
+                                 final int companyId,
+                                 final int amount) {
         return processBooleanMethod(dao.buyStock(companyId, amount, userId));
     }
 
     @PostMapping("/sell_stocks")
-    public ResponseEntity<?> sell(final @RequestBody int userId,
-                                  final @RequestBody int companyId,
-                                  final @RequestBody int amount) {
+    public ResponseEntity<?> sell(final int userId,
+                                  final int companyId,
+                                  final int amount) {
         return processBooleanMethod(dao.sellStock(companyId, amount, userId));
     }
 }
