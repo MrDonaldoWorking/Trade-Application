@@ -86,7 +86,7 @@
                                     <descriptorRef>artifact-with-dependencies</descriptorRef>
                                 </assembly>
                                 <ports>
-                                    <port>8080/tcp</port>
+                                    <port>11451/tcp</port>
                                 </ports>
                                 <cmd>
                                     <exec>
@@ -116,7 +116,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>trade.TradeApplication</mainClass>
+                            <mainClass>com.example.trade.TradeApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

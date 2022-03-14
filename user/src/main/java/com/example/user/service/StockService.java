@@ -121,4 +121,18 @@ public class StockService {
                 "&amount=", amount));
         return getBoolean(response);
     }
+
+    /**
+     * Trys to change a stock's cost
+     *
+     * @param companyId in int
+     * @param delta     in double
+     * @return false if operation failed
+     */
+    public boolean changePrice(final int companyId, final double delta) {
+        final HttpResponse<String> response = postRequest(request("/change",
+                "?companyId=", companyId,
+                "&delta=", delta));
+        return getBoolean(response);
+    }
 }

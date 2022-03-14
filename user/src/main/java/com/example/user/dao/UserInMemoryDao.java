@@ -97,4 +97,18 @@ public class UserInMemoryDao implements UserDao {
         }
         return false;
     }
+
+    @Override
+    public boolean changePrice(final int companyId, final double delta, final int userId) {
+        if (isUserNotExists(userId)) {
+            return false;
+        }
+
+        final User user = users.get(userId);
+        if (user.getRole() != Role.ADMIN) {
+            return false;
+        }
+
+        return service.changePrice(companyId, delta);
+    }
 }
