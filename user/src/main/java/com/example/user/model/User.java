@@ -37,13 +37,22 @@ public class User {
         return role;
     }
 
-    public void addStock(final int stockId, final int amount) {
+    public Stock findStock(final int stockId) {
         for (final Stock stock : stocks) {
             if (stock.getId() == stockId) {
-                stocks.get(stockId).put(amount);
+                return stock;
             }
         }
-        stocks.add(new Stock(stockId, amount));
+        return null;
+    }
+
+    public void addStock(final int stockId, final int amount) {
+        final Stock stock = findStock(stockId);
+        if (stock != null) {
+            stock.put(amount);
+        } else {
+            stocks.add(new Stock(stockId, amount));
+        }
     }
 
     public List<Stock> getStocks() {

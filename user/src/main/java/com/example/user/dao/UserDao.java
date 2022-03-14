@@ -43,4 +43,13 @@ public interface UserDao {
      * @return false if process was not successful
      */
     boolean buyStock(final int companyId, final int amount, final int userId);
+
+    /**
+     * Trys to sell a specified stock by specified user
+     * @param companyId in int
+     * @param amount in int
+     * @param userId in int
+     * @return false if process was not successful
+     */
+    boolean sellStock(final int companyId, final int amount, final int userId);
 }

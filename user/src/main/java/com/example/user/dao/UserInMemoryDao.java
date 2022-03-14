@@ -72,6 +72,28 @@ public class UserInMemoryDao implements UserDao {
 
         if (service.buy(companyId, amount)) {
             user.addStock(companyId, amount);
+            user.putMoney(-price * amount);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean sellStock(final int companyId, final int amount, final int userId) {
+        if (isUserNotExists(userId)) {
+            return false;
+        }
+
+        final User user = users.get(userId);
+        final Stock owns = user.findStock(companyId);
+        if (owns.getAmount() < amount) {
+            return false;
+        }
+
+        if (service.sell(companyId, amount)) {
+            user.addStock(companyId, -amount);
+            user.putMoney(service.getPrice(companyId) * amount);
+            return true;
         }
         return false;
     }

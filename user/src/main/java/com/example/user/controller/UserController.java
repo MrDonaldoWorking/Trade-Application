@@ -64,6 +64,6 @@ public class UserController {
     public ResponseEntity<?> sell(final @RequestBody int userId,
                                   final @RequestBody int companyId,
                                   final @RequestBody int amount) {
-        return null;
+        return processBooleanMethod(dao.sellStock(companyId, amount, userId));
     }
 }
