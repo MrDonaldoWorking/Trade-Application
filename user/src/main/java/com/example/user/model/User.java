@@ -7,7 +7,7 @@ public class User {
     private final int id;
     private double money;
     private final Role role;
-    private final List<Integer> stockIds = new ArrayList<>();
+    private final List<Stock> stocks = new ArrayList<>();
 
     public User(final int id) {
         this.id = id;
@@ -37,11 +37,16 @@ public class User {
         return role;
     }
 
-    public void addStock(final int stockId) {
-        stockIds.add(stockId);
+    public void addStock(final int stockId, final int amount) {
+        for (final Stock stock : stocks) {
+            if (stock.getId() == stockId) {
+                stocks.get(stockId).put(amount);
+            }
+        }
+        stocks.add(new Stock(stockId, amount));
     }
 
-    public List<Integer> getStockIds() {
-        return stockIds;
+    public List<Stock> getStocks() {
+        return stocks;
     }
 }

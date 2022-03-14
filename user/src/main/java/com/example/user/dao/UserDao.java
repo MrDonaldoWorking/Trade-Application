@@ -1,5 +1,6 @@
 package com.example.user.dao;
 
+import com.example.user.model.Stock;
 import com.example.user.model.User;
 
 import java.util.ArrayList;
@@ -25,7 +26,21 @@ public interface UserDao {
      * @param userId in int
      * @return false if user with userId doesn't exist
      */
-    List<Integer> getStocks(final int userId);
+    List<Stock> getStocks(final int userId);
 
+    /**
+     * Calculates user's money with all stocks bought by user
+     * @param userId in int
+     * @return sum ot -1 if user with userId doesn't exist
+     */
+    double calcTotalMoney(final int userId);
 
+    /**
+     * Trys to purchase a specified stock by specified user
+     * @param companyId in int
+     * @param amount in int
+     * @param userId in int
+     * @return false if process was not successful
+     */
+    boolean buyStock(final int companyId, final int amount, final int userId);
 }

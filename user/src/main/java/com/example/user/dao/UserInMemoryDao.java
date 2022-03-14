@@ -1,15 +1,19 @@
 package com.example.user.dao;
 
 import com.example.user.model.Role;
+import com.example.user.model.Stock;
 import com.example.user.model.User;
+import com.example.user.service.StockService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserInMemoryDao implements UserDao {
     private final List<User> users = new ArrayList<>();
+    private final StockService service;
 
-    public UserInMemoryDao() {
+    public UserInMemoryDao(final StockService service) {
+        this.service = service;
         // Add admin by default
         users.add(new User(0, Double.MAX_VALUE, Role.ADMIN));
     }
@@ -34,10 +38,41 @@ public class UserInMemoryDao implements UserDao {
     }
 
     @Override
-    public List<Integer> getStocks(final int userId) {
+    public List<Stock> getStocks(final int userId) {
         if (isUserNotExists(userId)) {
             return null;
         }
-        return users.get(userId).getStockIds();
+        return users.get(userId).getStocks();
+    }
+
+    @Override
+    public double calcTotalMoney(final int userId) {
+        if (isUserNotExists(userId)) {
+            return -1;
+        }
+
+        double sum = users.get(userId).getMoney();
+        for (final Stock stock : users.get(userId).getStocks()) {
+            sum += stock.getAmount() * service.getPrice(stock.getId());
+        }
+        return sum;
+    }
+
+    @Override
+    public boolean buyStock(final int companyId, final int amount, final int userId) {
+        if (isUserNotExists(userId)) {
+            return false;
+        }
+
+        final User user = users.get(userId);
+        final double price = service.getPrice(companyId);
+        if (user.getMoney() < price * amount) {
+            return false;
+        }
+
+        if (service.buy(companyId, amount)) {
+            user.addStock(companyId, amount);
+        }
+        return false;
     }
 }

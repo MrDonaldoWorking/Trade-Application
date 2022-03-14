@@ -42,18 +42,18 @@ public class TradeController {
         return ResponseEntity.ok(dao.getCurrentPrice(companyId));
     }
 
-    @GetMapping("/buy/{companyId}/{amount}")
-    public ResponseEntity<?> buy(@PathVariable final int companyId, @PathVariable final int amount) {
+    @PostMapping("/buy")
+    public ResponseEntity<?> buy(@RequestBody final int companyId, @RequestBody final int amount) {
         return processBooleanMethod(dao.buyStock(companyId, amount));
     }
 
-    @GetMapping("/sell/{companyId}/{amount}")
-    public ResponseEntity<?> sell(@PathVariable final int companyId, @PathVariable final int amount) {
+    @PostMapping("/sell")
+    public ResponseEntity<?> sell(@RequestBody final int companyId, @RequestBody final int amount) {
         return processBooleanMethod(dao.sellStock(companyId, amount));
     }
 
-    @PostMapping("/change/{companyId}/{delta}")
-    public ResponseEntity<?> change(@PathVariable final int companyId, @PathVariable final double delta) {
+    @PostMapping("/change")
+    public ResponseEntity<?> change(@RequestBody final int companyId, @RequestBody final double delta) {
         return processBooleanMethod(dao.changePrice(companyId, delta));
     }
 }
